@@ -71,4 +71,46 @@ Recursos como aprendizado de máquina e clusterização foram utilizados para ot
 
 ## Nomeação de cor
 
-Para padronizar o nome das cores mais utilizadas ao longo dos anos foi necessário uma referência já conhecida – a lista de estilos CSS (Cascading Style Sheets). Utilizando  
+Para padronizar o nome das cores mais utilizadas ao longo dos anos foi necessário uma referência já conhecida – a lista de estilos CSS (Cascading Style Sheets). Tendo esta coletânea como referência, foi possível aferir o 'nome' das cores por aproximação. 
+
+```python
+# LE OS ARQUIVOS JÁ PROCESSADOS ANTERIORMENTE
+
+cores_css=pd.read_csv('cores_basicas_css.csv') # CORES BASICAS NOMEADAS DO CSS
+todos_albums=pd.read_csv('completo_todas_as_musicas_processadas.csv') # DF COM ALBUMS PROCESSADOS
+todos_albums=todos_albums.dropna() # REMOVE VALORES VAZIOS
+
+# Função para converter "rgb(r, g, b)" em uma tupla (r, g, b)
+def parse_rgb(rgb_string):
+    rgb_string = rgb_string.strip("rgb()")
+    return tuple(map(int, rgb_string.split(',')))
+
+# Adicionar a coluna `rgb_tuple` ao cores_df com base em `cor_rgb`
+cores_css['rgb_tuple'] = cores_css['cor_rgb'].apply(parse_rgb)
+
+# Função para converter HEX para RGB
+def hex_to_rgb(hex_color):
+    if not isinstance(hex_color, str) or len(hex_color) < 7 or not hex_color.startswith('#'):
+        raise ValueError(f"Cor inválida: {hex_color}")
+    hex_color = hex_color.lstrip('#')
+    return tuple(int(hex_color[i:i+2], 16) for i in (0, 2, 4))
+
+# Função para encontrar a cor mais próxima
+def cor_mais_proxima(cor_predominante):
+    try:
+        rgb_pred = hex_to_rgb(cor_predominante)
+    except ValueError:
+        return None  # Retornar None para cores inválidas
+    
+    menor_distancia = float('inf')
+    cor_proxima = None
+
+    for _, row in cores_css.iterrows():
+        rgb = row['rgb_tuple']
+        distancia = np.sqrt(sum((rgb_pred[i] - rgb[i]) ** 2 for i in range(3)))
+        if distancia < menor_distancia:
+            menor_distancia = distancia
+            cor_proxima = row['nome']
+    
+    return cor_proxima
+```

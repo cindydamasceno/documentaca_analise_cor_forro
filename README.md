@@ -116,9 +116,10 @@ def cor_mais_proxima(cor_predominante):
 ```
 
 <hr>
-## Resultado
+##Resultado
 
 Utilizando matplotlib foi possível perceber que, apesar de serem dominantes no começo o gênero entre os anos 1950 e 1970, as cores quentes perderam espaço para as cores mais sóbrias e fechadas – como o preto e o roxo. Para evitar distorções, foram calculadas a porcentagem de prevalência da cor por ano.
+
 
 
 

@@ -1,4 +1,4 @@
-# **Uma Carta de Amor ao Forró**
+# **Uma análise colométrica do Forró**
 
 Há diversas maneiras de se falar de amor no Forró – é um gênero quente e vivo e colorido.
 

@@ -47,5 +47,11 @@ for pagina in paginas:
     dados_completos=pd.concat([dados_completos,dados],ignore_index=True)
 ```
 
+Com as informações sobre artistas reunidos, avancemos para o próximo passo: listar todos os álbuns de cada um deles. Outra limitação: por aqui, foi necessário expandir o offset para pegar mais do que 50 álbuns por vez. 
+
+<hr>
+
+##
+
 
 
